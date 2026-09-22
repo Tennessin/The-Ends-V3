@@ -1,0 +1,1 @@
+export { IllegalAreaHeroSection } from "./IllegalAreaHeroSection";

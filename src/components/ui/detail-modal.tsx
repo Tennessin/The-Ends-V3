@@ -1,6 +1,12 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import type { CatalogItem, WeaponStats, DrugStats } from "../../data/items";
+import {
+  NOKIA_PHONE_DESCRIPTION,
+  NOKIA_PHONE_PRICE,
+  NOKIA_PHONE_TAGS,
+  isNokiaPhoneItem,
+} from "../../data/spinEligibility";
 
 interface DetailModalProps {
   item: CatalogItem | null;
@@ -47,8 +53,10 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
   if (!item) return null;
 
   const isWeapon = item.type === "weapon" || item.type === "knife";
+  const isNokiaPhone = isNokiaPhoneItem(item);
   const weaponStats = isWeapon ? (item.stats as WeaponStats) : null;
-  const drugStats = !isWeapon ? (item.stats as DrugStats) : null;
+  const drugStats = !isWeapon && !isNokiaPhone ? (item.stats as DrugStats) : null;
+  const displayTags = isNokiaPhone ? NOKIA_PHONE_TAGS : item.tags;
 
   return (
     <div
@@ -86,6 +94,11 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
                   Tier {item.tier}
                 </span>
               )}
+              {isNokiaPhone && (
+                <span className="rounded-md border border-[#60a5fa]/35 bg-[#172554] px-2 py-0.5 text-[11px] font-bold tracking-[0.5px] text-[#bfdbfe]">
+                  Nokia Phone
+                </span>
+              )}
             </div>
             <h2 className="[font-family:'Inter',Helvetica] text-2xl font-black tracking-[-0.8px] text-[#f7f4fb]">
               {item.name}{drugQuantity ? ` ${drugQuantity}` : ""}
@@ -109,7 +122,7 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
 
         <div className="p-5 space-y-5">
           <p className="[font-family:'Inter',Helvetica] text-sm font-normal leading-[22px] text-[#a296b6]">
-            {item.description}
+            {isNokiaPhone ? NOKIA_PHONE_DESCRIPTION : item.description}
           </p>
 
           {weaponStats && (
@@ -146,6 +159,25 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
             </div>
           )}
 
+          {isNokiaPhone && (
+            <div className="space-y-3">
+              <h3 className="[font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[1px] text-[#c3b2df] uppercase">
+                Nokia Phone Sale
+              </h3>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  { label: "Purpose", value: "Sold to NPCs" },
+                  { label: "Perks", value: "None" },
+                  { label: "Price", value: NOKIA_PHONE_PRICE },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex flex-col gap-1 rounded-md border border-[#1a1424] bg-[#0d0913] px-3.5 py-3">
+                    <span className="[font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[0.8px] text-[#c3b2df] uppercase">{label}</span>
+                    <span className="[font-family:'Inter',Helvetica] text-sm font-normal text-[#f7f4fb]">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {drugStats && (
             <div className="space-y-3">
               <h3 className="[font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[1px] text-[#c3b2df] uppercase">
@@ -173,9 +205,9 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
             </div>
           )}
 
-          {item.tags.length > 0 && (
+          {displayTags.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {item.tags.map((tag) => (
+              {displayTags.map((tag) => (
                 <span
                   key={tag}
                   className="rounded-xl border border-[#1a1424] bg-[#0b0711] px-2.5 py-[7px] [font-family:'Inter',Helvetica] text-xs font-bold text-[#f7f4fb]"

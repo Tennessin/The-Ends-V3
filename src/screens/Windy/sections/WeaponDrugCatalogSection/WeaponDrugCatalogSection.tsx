@@ -5,7 +5,12 @@ import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import type { CatalogItem, ItemType } from "../../../../data/items";
 import { catalogItems } from "../../../../data/items";
-import { isNokiaPhoneItem } from "../../../../data/spinEligibility";
+import {
+  NOKIA_PHONE_DESCRIPTION,
+  NOKIA_PHONE_PRICE,
+  NOKIA_PHONE_TAGS,
+  isNokiaPhoneItem,
+} from "../../../../data/spinEligibility";
 
 type FilterType = "ALL" | "WEAPONS" | "KNIVES" | "DRUGS";
 
@@ -42,7 +47,8 @@ export const WeaponDrugCatalogSection = ({
       const matchesSearch =
         search.trim() === "" ||
         item.name.toLowerCase().includes(search.toLowerCase()) ||
-        item.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+        item.tags.some((t) => t.toLowerCase().includes(search.toLowerCase())) ||
+        (isNokiaPhoneItem(item) && "nokia phone npc sale".includes(search.toLowerCase()));
       return matchesType && matchesSearch;
     });
   }, [search, activeFilter]);
@@ -155,10 +161,15 @@ export const WeaponDrugCatalogSection = ({
                   </div>
                 </div>
                 <p className="mt-3 [font-family:'Inter',Helvetica] text-sm font-normal leading-[22.4px] tracking-[0] text-[#a296b6] line-clamp-3">
-                  {item.description}
+                  {isNokiaPhoneItem(item) ? NOKIA_PHONE_DESCRIPTION : item.description}
+                  {isNokiaPhoneItem(item) && (
+                    <span className="mt-2 block font-bold text-[#bfdbfe]">
+                      Price: {NOKIA_PHONE_PRICE}
+                    </span>
+                  )}
                 </p>
                 <div className="mt-auto flex flex-wrap items-start gap-2 pt-5">
-                  {item.tags.map((tag) => (
+                  {(isNokiaPhoneItem(item) ? NOKIA_PHONE_TAGS : item.tags).map((tag) => (
                     <Badge
                       key={`${item.id}-${tag}`}
                       className="rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-2 [font-family:'Inter',Helvetica] text-xs font-bold leading-[normal] tracking-[0] text-[#f7f4fb] hover:bg-[#0d0913]"

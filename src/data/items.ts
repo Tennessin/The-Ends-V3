@@ -610,18 +610,6 @@ export const catalogItems: CatalogItem[] = [
     stats: { minDamage: 17, maxDamage: 32, range: 35, fireRate: 72, recoil: 20 },
   },
   {
-    id: "amirig23",
-    name: "Glock 23 Switch",
-    type: "weapon",
-    rarity: "Common",
-    tier: 2,
-    description:
-      "Light sidearm for new players with fast draw speed, cheap ammo cost, and steady entry-level value for simple city jobs and everyday protection.",
-    tags: ["Low recoil", "Fast draw"],
-    image: asset("amirig23.png"),
-    stats: { minDamage: 17, maxDamage: 32, range: 35, fireRate: 72, recoil: 20 },
-  },
-  {
     id: "mp9frt",
     name: "MP9 FRT",
     type: "weapon",

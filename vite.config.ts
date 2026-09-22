@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/WindyCity-Helper/",
+  base: "/The-Ends-V3/",
   css: {
     postcss: {
       plugins: [tailwind()],

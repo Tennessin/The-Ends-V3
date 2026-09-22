@@ -1,0 +1,15 @@
+node_modules/
+public/
+src/
+.DS_Store
+index.html
+package-lock.json
+package.json
+pnpm-lock.yaml
+tailwind.config.js
+tailwind.css
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+.DS_Store

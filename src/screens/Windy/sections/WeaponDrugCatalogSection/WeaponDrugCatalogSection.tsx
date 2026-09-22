@@ -1,9 +1,11 @@
+import { Smartphone } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import type { CatalogItem, ItemType } from "../../../../data/items";
 import { catalogItems } from "../../../../data/items";
+import { isNokiaPhoneItem } from "../../../../data/spinEligibility";
 
 type FilterType = "ALL" | "WEAPONS" | "KNIVES" | "DRUGS";
 
@@ -140,9 +142,17 @@ export const WeaponDrugCatalogSection = ({
                   <h3 className="pt-px [font-family:'Inter',Helvetica] text-lg font-normal leading-[20.7px] tracking-[-0.36px] text-[#f7f4fb]">
                     {item.name}
                   </h3>
-                  <Badge className="h-7 shrink-0 rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold leading-[normal] tracking-[0] text-[#c3b2df] hover:bg-[#0d0913]">
-                    {item.rarity}
-                  </Badge>
+                  <div className="flex shrink-0 flex-col items-end gap-1.5">
+                    <Badge className="h-7 rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold leading-[normal] tracking-[0] text-[#c3b2df] hover:bg-[#0d0913]">
+                      {item.rarity}
+                    </Badge>
+                    {isNokiaPhoneItem(item) && (
+                      <Badge className="gap-1 rounded-xl border border-[#60a5fa]/35 bg-[#172554] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[10px] font-bold text-[#bfdbfe] hover:bg-[#172554]">
+                        <Smartphone className="h-3 w-3" aria-hidden="true" />
+                        Nokia Phone
+                      </Badge>
+                    )}
+                  </div>
                 </div>
                 <p className="mt-3 [font-family:'Inter',Helvetica] text-sm font-normal leading-[22.4px] tracking-[0] text-[#a296b6] line-clamp-3">
                   {item.description}

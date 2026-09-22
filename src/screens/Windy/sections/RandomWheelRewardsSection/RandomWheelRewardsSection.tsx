@@ -4,6 +4,7 @@ import { Button } from "../../../../components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "../../../../components/ui/tabs";
 import type { CatalogItem, ItemType } from "../../../../data/items";
 import { catalogItems, getRandomItems } from "../../../../data/items";
+import { isSpinEligible } from "../../../../data/spinEligibility";
 
 type Tier = 1 | 1.5 | 2;
 
@@ -145,6 +146,7 @@ export const RandomWheelRewardsSection = ({
     (tier: Tier, category: ItemType) =>
       catalogItems.filter(
         (item) =>
+          isSpinEligible(item) &&
           item.type === category &&
           (category === "drug" ||
             (category === "knife" && item.tier === undefined && !item.spinTiers) ||

@@ -16,7 +16,7 @@ type FilterType = "ALL" | "WEAPONS" | "KNIVES" | "DRUGS";
 
 const filterButtons: { value: FilterType; label: string }[] = [
   { value: "ALL", label: "All" },
-  { value: "WEAPONS", label: "Weapons" },
+  { value: "WEAPONS", label: "Guns" },
   { value: "KNIVES", label: "Knives" },
   { value: "DRUGS", label: "Drugs" },
 
@@ -60,13 +60,13 @@ export const WeaponDrugCatalogSection = ({
     >
       <header className="flex w-full max-w-[700px] flex-col items-start gap-3">
         <p className="flex items-center [font-family:'Inter',Helvetica] text-xs font-bold tracking-[0.96px] text-[#c3b2df]">
-          All weapons + descriptions
+          All guns + descriptions
         </p>
         <h2 className="flex items-center [font-family:'Inter',Helvetica] text-[44px] font-black leading-[46.2px] tracking-[-1.76px] text-[#f7f4fb] max-sm:text-3xl max-sm:leading-tight">
-          Weapon &amp; Drug catalog
+          Gun &amp; Drug catalog
         </h2>
         <p className="[font-family:'Inter',Helvetica] text-[15px] font-normal leading-[25.5px] tracking-[0] text-[#a296b6]">
-          A full browse area so players can see every main weapon and drug
+          A full browse area so players can see every main gun and drug
           reward, what it is good for, and which route or playstyle it fits best
           before they use the random selector.
         </p>

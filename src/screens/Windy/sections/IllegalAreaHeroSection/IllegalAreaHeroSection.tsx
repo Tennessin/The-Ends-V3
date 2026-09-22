@@ -149,7 +149,7 @@ export const IllegalAreaHeroSection = (): JSX.Element => {
                 </a>
                 <a href="#weapon-catalog" className={secondaryCtaClass}>
                   <IconViewAllWeapons />
-                  <span className="flex items-center justify-center text-center">View all weapons</span>
+                  <span className="flex items-center justify-center text-center">View all guns</span>
                 </a>
                 <a href="#skill-information" className={secondaryCtaClass}>
                   <span className="text-[#f7f4fb]">

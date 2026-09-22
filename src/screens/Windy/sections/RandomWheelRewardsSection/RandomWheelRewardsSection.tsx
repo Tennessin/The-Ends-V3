@@ -19,7 +19,7 @@ const GUNS_PER_ROLL = 1;
 const KNIVES_PER_ROLL = 3;
 
 const categoryOptions: { value: string; label: string; type: ItemType }[] = [
-  { value: "firearms", label: "WEAPONS", type: "weapon" },
+  { value: "firearms", label: "GUNS", type: "weapon" },
   { value: "drugs", label: "DRUGS", type: "drug" },
 ];
 
@@ -401,7 +401,7 @@ export const RandomWheelRewardsSection = ({
                   className={`flex h-full cursor-pointer flex-col rounded-lg border border-solid border-[#1a1424] bg-[#0b0711] p-[17px] text-left transition-all duration-150 hover:border-[#c3b2df]/40 hover:shadow-[0_0_16px_rgba(184,199,217,0.07)]`}
                 >
                   <Badge className="mb-3 w-fit rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[0.02em] text-[#c3b2df] hover:bg-[#0d0913] normal-case">
-                    weapon {index + 1}
+                    gun {index + 1}
                   </Badge>
                   <div className="flex h-[120px] items-center justify-center rounded-md border border-solid border-[#1a1424] bg-[#0e0e0e] p-3.5">
                     {item.image ? (

@@ -23,7 +23,7 @@ const rarityColors: Record<string, string> = {
 };
 
 const typeLabels: Record<string, string> = {
-  weapon: "Weapon",
+  weapon: "Gun",
   drug: "Drug",
 
 };

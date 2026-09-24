@@ -55,7 +55,7 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
   const isWeapon = item.type === "weapon" || item.type === "knife";
   const isNokiaPhone = isNokiaPhoneItem(item);
   const weaponStats = isWeapon ? (item.stats as WeaponStats) : null;
-  const drugStats = !isWeapon && !isNokiaPhone ? (item.stats as DrugStats) : null;
+  const drugStats = !isWeapon ? (item.stats as DrugStats) : null;
   const displayTags = isNokiaPhone ? NOKIA_PHONE_TAGS : item.tags;
 
   return (
@@ -122,8 +122,13 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
 
         <div className="p-5 space-y-5">
           <p className="[font-family:'Inter',Helvetica] text-sm font-normal leading-[22px] text-[#a296b6]">
-            {isNokiaPhone ? NOKIA_PHONE_DESCRIPTION : item.description}
+            {item.description}
           </p>
+          {isNokiaPhone && (
+            <p className="[font-family:'Inter',Helvetica] text-sm font-bold leading-[22px] text-[#bfdbfe]">
+              {NOKIA_PHONE_DESCRIPTION}
+            </p>
+          )}
 
           {weaponStats && (
             <div className="space-y-3">
@@ -166,8 +171,7 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
               </h3>
               <div className="grid grid-cols-1 gap-2">
                 {[
-                  { label: "Purpose", value: "Sold to NPCs" },
-                  { label: "Perks", value: "None" },
+                  { label: "Purpose", value: "Sold to NPC customers" },
                   { label: "Price", value: NOKIA_PHONE_PRICE },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex flex-col gap-1 rounded-md border border-[#1a1424] bg-[#0d0913] px-3.5 py-3">

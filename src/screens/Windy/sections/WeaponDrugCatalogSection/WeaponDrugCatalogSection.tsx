@@ -161,10 +161,10 @@ export const WeaponDrugCatalogSection = ({
                   </div>
                 </div>
                 <p className="mt-3 [font-family:'Inter',Helvetica] text-sm font-normal leading-[22.4px] tracking-[0] text-[#a296b6] line-clamp-3">
-                  {isNokiaPhoneItem(item) ? NOKIA_PHONE_DESCRIPTION : item.description}
+                  {item.description}
                   {isNokiaPhoneItem(item) && (
                     <span className="mt-2 block font-bold text-[#bfdbfe]">
-                      Price: {NOKIA_PHONE_PRICE}
+                      {NOKIA_PHONE_DESCRIPTION} Price: {NOKIA_PHONE_PRICE}
                     </span>
                   )}
                 </p>

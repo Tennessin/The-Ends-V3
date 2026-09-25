@@ -5,7 +5,7 @@
 
 export interface FactionTier {
   name: string;
-  /** Effective member cap from rk_factions (Unofficial has its own limit, the rest use the default). */
+  /** Member cap per tier (rk_factions FactionLimits.TierLimits). */
   memberLimit: number;
   canRedeem: boolean;
   note: string;
@@ -13,9 +13,9 @@ export interface FactionTier {
 
 export const FACTION_TIERS: FactionTier[] = [
   { name: "Unofficial", memberLimit: 10, canRedeem: false, note: "Where every new faction starts. No tier reward yet." },
-  { name: "Tier One", memberLimit: 25, canRedeem: true, note: "First reward unlocks. Tier 1 and 0.5 factions may shoot to kill." },
+  { name: "Tier One", memberLimit: 15, canRedeem: true, note: "First reward unlocks. Tier 1 and 0.5 factions may shoot to kill." },
   { name: "Tier Two", memberLimit: 25, canRedeem: true, note: "Second reward. Attacks every 12 hours, supercars allowed on attacks." },
-  { name: "Tier Three", memberLimit: 25, canRedeem: true, note: "Top of the ladder. Third and final reward." },
+  { name: "Tier Three", memberLimit: 30, canRedeem: true, note: "Top of the ladder. Third and final reward." },
 ];
 
 export interface TierReward {

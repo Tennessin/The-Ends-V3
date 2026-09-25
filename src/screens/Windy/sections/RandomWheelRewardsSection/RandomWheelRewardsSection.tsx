@@ -3,10 +3,10 @@ import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "../../../../components/ui/tabs";
 import type { CatalogItem, ItemType } from "../../../../data/items";
-import { catalogItems, getRandomItems } from "../../../../data/items";
-import { isSpinEligible } from "../../../../data/spinEligibility";
-
-type Tier = 1 | 1.5 | 2;
+import { getRandomItems } from "../../../../data/items";
+import { DropCode } from "../../../../components/ui/drop-code";
+import { encodeDropCode, quantityLabelToNumber } from "../../../../lib/dropCode";
+import { dropChances, formatOdds, formatPercent, getPool as getSharedPool, tierNumber, type Tier } from "../../../../lib/dropPool";
 
 const tierOptions: { value: string; label: string; tier: Tier }[] = [
   { value: "tier-1", label: "TIER 1", tier: 1 },
@@ -134,6 +134,7 @@ export const RandomWheelRewardsSection = ({
   const [currentSpin, setCurrentSpin] = useState(0);
   const [totalSpins, setTotalSpins] = useState(0);
   const [dropResults, setDropResults] = useState<CatalogItem[]>([]);
+  const [dropCode, setDropCode] = useState<{ code: string; summary: string } | null>(null);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sequenceCancelledRef = useRef(false);
@@ -142,19 +143,7 @@ export const RandomWheelRewardsSection = ({
   const activeCategory = categoryOptions.find((c) => c.value === activeCategoryValue)!.type;
   const isDrugMode = activeCategory === "drug";
 
-  const getPool = useCallback(
-    (tier: Tier, category: ItemType) =>
-      catalogItems.filter(
-        (item) =>
-          isSpinEligible(item) &&
-          item.type === category &&
-          (category === "drug" ||
-            (category === "knife" && item.tier === undefined && !item.spinTiers) ||
-            item.tier === tier ||
-            item.spinTiers?.includes(tier)),
-      ),
-    [],
-  );
+  const getPool = useCallback((tier: Tier, category: ItemType) => getSharedPool(tier, category), []);
 
   const buildSlotsFromPool = useCallback((pool: CatalogItem[], startIndex: number) => {
     const newSlots: (CatalogItem | null)[] = [...Array(SLOT_COUNT - 1)].map((_, i) => {
@@ -231,6 +220,7 @@ export const RandomWheelRewardsSection = ({
 
     sequenceCancelledRef.current = false;
     setDropResults([]);
+    setDropCode(null);
 
     if (isDrugMode) {
       const spins = 1;
@@ -245,6 +235,10 @@ export const RandomWheelRewardsSection = ({
 
       if (result.item) {
         const qty = drugQuantities[Math.floor(Math.random() * drugQuantities.length)];
+        setDropCode({
+          code: encodeDropCode(tierNumber(activeTier), [{ id: result.item.id, qty: quantityLabelToNumber(qty) }]),
+          summary: `${result.item.name} ${qty}, Tier ${tierNumber(activeTier)}`,
+        });
         setTimeout(() => onItemSelected(result.item!, qty), 250);
       }
     } else {
@@ -277,6 +271,15 @@ export const RandomWheelRewardsSection = ({
       setIsSpinning(false);
       setCurrentSpin(0);
       setTotalSpins(0);
+
+      if (collected.length > 0 && !sequenceCancelledRef.current) {
+        const guns = collected.filter((i) => i.type === "weapon").length;
+        const knives = collected.filter((i) => i.type === "knife").length;
+        setDropCode({
+          code: encodeDropCode(tierNumber(activeTier), collected.map((i) => ({ id: i.id, qty: 1 }))),
+          summary: `${guns} gun${guns === 1 ? "" : "s"} + ${knives} knife${knives === 1 ? "" : "s"}, Tier ${tierNumber(activeTier)}`,
+        });
+      }
     }
   }, [activeTier, activeCategory, getPool, isDrugMode, isSpinning, onItemSelected, runSingleSpin]);
 
@@ -289,6 +292,7 @@ export const RandomWheelRewardsSection = ({
     if (isSpinning) return;
     setActiveCategoryValue(value);
     setDropResults([]);
+    setDropCode(null);
   };
 
   useEffect(() => {
@@ -416,9 +420,19 @@ export const RandomWheelRewardsSection = ({
                     <h4 className="pt-px [font-family:'Inter',Helvetica] text-lg font-normal leading-[20.7px] tracking-[-0.36px] text-[#f7f4fb]">
                       {item.name}
                     </h4>
-                    <Badge className="h-7 shrink-0 rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold leading-[normal] tracking-[0] text-[#c3b2df] hover:bg-[#0d0913]">
-                      {item.rarity}
-                    </Badge>
+                    <div className="flex shrink-0 flex-col items-end gap-1">
+                      <Badge className="h-7 shrink-0 rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold leading-[normal] tracking-[0] text-[#c3b2df] hover:bg-[#0d0913]">
+                        {item.rarity}
+                      </Badge>
+                      {(() => {
+                        const c = dropChances(item).find((x) => x.tier === activeTier) ?? dropChances(item)[0];
+                        return c ? (
+                          <span className="[font-family:'Inter',Helvetica] text-[10px] font-bold text-[#a296b6]">
+                            {formatPercent(c.perPull)} · {formatOdds(c.perPull)}
+                          </span>
+                        ) : null;
+                      })()}
+                    </div>
                   </div>
                   <p className="mt-3 text-left [font-family:'Inter',Helvetica] text-sm font-normal leading-[22.4px] tracking-[0] text-[#a296b6] line-clamp-3">
                     {item.description}
@@ -426,7 +440,13 @@ export const RandomWheelRewardsSection = ({
                 </button>
               ))}
             </div>
+            {dropCode && <DropCode code={dropCode.code} summary={dropCode.summary} />}
           </div>
+        </div>
+      )}
+      {isDrugMode && dropCode && (
+        <div className="mt-6 px-4">
+          <DropCode code={dropCode.code} summary={dropCode.summary} />
         </div>
       )}
     </section>

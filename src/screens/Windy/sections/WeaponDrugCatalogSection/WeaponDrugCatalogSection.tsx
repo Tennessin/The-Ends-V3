@@ -6,6 +6,7 @@ import { Card, CardContent } from "../../../../components/ui/card";
 import { EffectList } from "../../../../components/ui/effect-list";
 import type { CatalogItem, DrugStats, ItemType, WeaponStats } from "../../../../data/items";
 import { catalogItems, tierLabel } from "../../../../data/items";
+import { dropChances, formatPercent, tierNumber } from "../../../../lib/dropPool";
 import {
   NOKIA_PHONE_DESCRIPTION,
   NOKIA_PHONE_PRICE,
@@ -288,6 +289,21 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
                           Wheel tier {[item.tier, ...(item.spinTiers ?? [])].map(tierLabel).sort().join(" & ")}
                         </span>
                       )}
+                      {(() => {
+                        const chances = dropChances(item);
+                        if (chances.length === 0) return null;
+                        const shared = chances.length === 1 && item.tier === undefined;
+                        return (
+                          <span
+                            className="[font-family:'Inter',Helvetica] text-[10px] font-bold text-[#4ade80]"
+                            title={shared ? "Same odds on every tier, per pull" : "Chance per pull, by wheel tier"}
+                          >
+                            {shared
+                              ? `${formatPercent(chances[0].perPull)} per pull`
+                              : chances.map((c) => `T${tierNumber(c.tier)} ${formatPercent(c.perPull)}`).join(" · ")}
+                          </span>
+                        );
+                      })()}
                       {nokia && (
                         <Badge className="gap-1 rounded-xl border border-[#60a5fa]/35 bg-[#172554] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[10px] font-bold text-[#bfdbfe] hover:bg-[#172554]">
                           <Smartphone className="h-3 w-3" aria-hidden="true" />

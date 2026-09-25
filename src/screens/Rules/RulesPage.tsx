@@ -3,12 +3,8 @@ import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav, type SectionLink } from "../../components/SiteNav";
 import { RULES_INTRO, RULE_SECTIONS, TOTAL_RULES } from "../../data/rules";
 import { asset } from "../../lib/asset";
-import { FactionTiersGuide } from "./FactionTiersGuide";
 
-const SECTIONS: SectionLink[] = [
-  { href: "#faction-tiers", label: "Faction tiers" },
-  { href: "#rules-list", label: "All rules" },
-];
+const SECTIONS: SectionLink[] = [{ href: "#rules-list", label: "All rules" }];
 
 const URL_RE = /(https?:\/\/[^\s)]+)/g;
 
@@ -123,7 +119,7 @@ export const RulesPage = (): JSX.Element => {
             {[
               { v: String(RULE_SECTIONS.length), k: "Sections" },
               { v: String(TOTAL_RULES), k: "Rules" },
-              { v: "4", k: "Faction tiers" },
+              { v: "72h", k: "Before your first attack" },
             ].map((s) => (
               <div key={s.k} className="rounded-lg border border-[#1a1424] bg-[#0b0711]/70 px-4 py-3 backdrop-blur-[4px]">
                 <dt className="[font-family:'Inter',Helvetica] text-[11px] font-bold uppercase tracking-[0.8px] text-[#a296b6]">
@@ -135,8 +131,6 @@ export const RulesPage = (): JSX.Element => {
           </dl>
         </div>
       </section>
-
-      <FactionTiersGuide />
 
       <section id="rules-list" className="mx-auto w-full max-w-[1440px] scroll-mt-20 px-2 pb-10 sm:px-3">
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">

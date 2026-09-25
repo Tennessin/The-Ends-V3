@@ -1,0 +1,1 @@
+export { FactionTiersPage } from "./FactionTiersPage";

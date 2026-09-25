@@ -31,6 +31,9 @@ export const SiteFooter = (): JSX.Element => (
         <Link to="/rules" className={linkClass}>
           Rules of Engagement
         </Link>
+        <Link to="/faction-tiers" className={linkClass}>
+          Faction Tiers
+        </Link>
         <a href="#top" className={linkClass}>
           Back to top ↑
         </a>

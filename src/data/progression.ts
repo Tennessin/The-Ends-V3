@@ -329,12 +329,6 @@ export const XP_SOURCES: XpSource[] = [
     perHour: 39 * 4,
   },
   {
-    title: "Player kills",
-    amount: "+10 XP",
-    detail: "Every player you kill in a fight. No cooldown, but it is a small number compared to chat.",
-    kind: "gain",
-  },
-  {
     title: "Getting shot",
     amount: "−500 XP",
     detail:
@@ -347,12 +341,6 @@ export const XP_SOURCES: XpSource[] = [
     detail:
       "Each time a knife, bat or other melee weapon lands on you. Shares the one-a-minute cooldown with gunshots, so you never lose more than one hit's worth per minute.",
     kind: "loss",
-  },
-  {
-    title: "Staff awards",
-    amount: "varies",
-    detail: "Staff can hand out XP for events and good roleplay with /addxp.",
-    kind: "gain",
   },
 ];
 

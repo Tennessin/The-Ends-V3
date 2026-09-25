@@ -1,6 +1,7 @@
 import { StrictMode, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { FactionTiersPage } from "./screens/FactionTiers";
 import { ProgressionPage } from "./screens/Progression";
 import { RulesPage } from "./screens/Rules";
 import { Windy } from "./screens/Windy";
@@ -36,6 +37,7 @@ createRoot(document.getElementById("app") as HTMLElement).render(
         <Route path="/" element={<Windy />} />
         <Route path="/progression" element={<ProgressionPage />} />
         <Route path="/rules" element={<RulesPage />} />
+        <Route path="/faction-tiers" element={<FactionTiersPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

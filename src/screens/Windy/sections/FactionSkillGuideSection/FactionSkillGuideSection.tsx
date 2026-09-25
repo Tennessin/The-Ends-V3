@@ -110,8 +110,8 @@ export const FactionSkillGuideSection = (): JSX.Element => {
         </div>
 
         <p className="relative pt-4 [font-family:'Inter',Helvetica] text-xs text-[#a296b6]">
-          Quick version: {XP_SOURCES[0].amount} for roleplay chat every 15 minutes, {XP_SOURCES[1].amount} per kill,{" "}
-          {XP_SOURCES[2].amount} every time you get shot, {XP_SOURCES[3].amount} when you get stabbed.
+          Quick version: {XP_SOURCES[0].amount} for roleplay chat every 15 minutes, {XP_SOURCES[1].amount} every time
+          you get shot, {XP_SOURCES[2].amount} when you get stabbed.
         </p>
       </div>
     </section>

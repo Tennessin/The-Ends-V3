@@ -700,11 +700,9 @@ export const catalogItems: CatalogItem[] = [
     name: "Cocaine",
     type: "drug",
     rarity: "Rare",
-    description:
-      "PRO: +10% Run Speed for 300s or +15% Stamina Regen for 300s. CON: -8% Health instantly or -10% Stamina Regen for 180s.",
-    tags: ["Run speed", "Stamina"],
+    description: "Sold to NPC customers via the Nokia Phone. Using it has no PRO / CON effect.",
+    tags: ["NPC Sale"],
     image: asset("drugs/cocaine.png"),
-    stats: { duration: "300s", effect: "Run speed, stamina regen", weight: "0.3 kg" },
   },
   {
     id: "pinewood",
@@ -756,7 +754,7 @@ export const catalogItems: CatalogItem[] = [
     type: "drug",
     rarity: "Common",
     description:
-      "Promethazine for lean. Adds to the codeine's pools when poured: PRO +5% Health Regen for 180s. CON -5% Stamina Regen for 180s. Phenergan Elixir (+1 strength) and Indian Phenergan (+2) instead add Adrenaline Rush until restart with 10-15% Health Regen, but cost health and stamina regen.",
+      "Promethazine for lean. Adds to the codeine's pools when poured. PRO: +5% Health Regen for 180s. CON: -5% Stamina Regen for 180s. Phenergan Elixir (+1 strength) and Indian Phenergan (+2) instead add Adrenaline Rush until restart with 10-15% Health Regen, but cost health and stamina regen.",
     tags: ["Lean", "Promethazine"],
     image: asset("drugs/phenergan25mg.png"),
     stats: { duration: "180s", effect: "Health regen (lean mix-in)", weight: "0.4 kg" },
@@ -766,11 +764,9 @@ export const catalogItems: CatalogItem[] = [
     name: "Heroin",
     type: "drug",
     rarity: "Legendary",
-    description:
-      "PRO: +25 Armor (reactive) or 10% Health Regen. CON: -30% Movement Speed until restart or -10% Health after effect.",
-    tags: ["Reactive armor", "Health regen"],
+    description: "Sold to NPC customers via the Nokia Phone. Using it has no PRO / CON effect.",
+    tags: ["NPC Sale"],
     image: asset("drugs/heroin.png"),
-    stats: { duration: "Until restart", effect: "Reactive armor, slowed movement", weight: "0.3 kg" },
   },
   {
     id: "k2",
@@ -789,7 +785,7 @@ export const catalogItems: CatalogItem[] = [
     type: "drug",
     rarity: "Rare",
     description:
-      "+10% Damage Resistance for 300s. 15% Health Regen. Slowed movement for 300s. Disorientation for 300s.",
+      "PRO: +10% Damage Resistance for 300s or 15% Health Regen. CON: Slowed movement for 300s or Disorientation for 300s.",
     tags: ["Damage resistance", "Health regen"],
     image: asset("drugs/ketamine.png"),
     stats: { duration: "300s", effect: "Damage resistance, health regen", weight: "0.1 kg" },
@@ -933,7 +929,7 @@ export const catalogItems: CatalogItem[] = [
     type: "drug",
     rarity: "Rare",
     description:
-      "+10% Run Speed for 300s. +15% Stamina Regen for 300s. -8% Health instantly. -10% Stamina Regen for 180s.",
+      "PRO: +10% Run Speed for 300s or +15% Stamina Regen for 300s. CON: -8% Health instantly or -10% Stamina Regen for 180s.",
     tags: ["Run speed", "Stamina"],
     image: asset("drugs/boliviancoke28g.png"),
     stats: { duration: "300s", effect: "Run speed, stamina regen", weight: "0.3 kg" },
@@ -943,22 +939,18 @@ export const catalogItems: CatalogItem[] = [
     name: "Clinged Ket Rocks",
     type: "drug",
     rarity: "Rare",
-    description:
-      "+10% Damage Resistance for 300s. 15% Health Regen. Slowed movement for 300s. Disorientation for 300s.",
-    tags: ["Damage resistance", "Health regen"],
+    description: "Sold to NPC customers via the Nokia Phone. Using it has no PRO / CON effect.",
+    tags: ["NPC Sale"],
     image: asset("drugs/clingedketrocks.png"),
-    stats: { duration: "300s", effect: "Damage resistance, health regen", weight: "0.1 kg" },
   },
   {
     id: "crack-rocks",
     name: "Crack Rocks",
     type: "drug",
     rarity: "Rare",
-    description:
-      "+10 Armor (reactive on bullet). +20% Melee Damage for 180s. -5% Health instantly. Stamina drain for 240s.",
-    tags: ["Reactive armor", "Melee"],
+    description: "Sold to NPC customers via the Nokia Phone. Using it has no PRO / CON effect.",
+    tags: ["NPC Sale"],
     image: asset("drugs/crackrocks.png"),
-    stats: { duration: "180s", effect: "Reactive armor, melee damage", weight: "0.1 kg" },
   },
   {
     id: "mda-ecstasy",
@@ -1027,28 +1019,6 @@ export const catalogItems: CatalogItem[] = [
     stats: { duration: "Until restart", effect: "Headshot Kings skill", weight: "0.05 kg" },
   },
   {
-    id: "blue-dream",
-    name: "Blue Dream",
-    type: "drug",
-    rarity: "Common",
-    description:
-      "Weed strain (sativa). Roll it or pack a bong: stress relief + high only, no PRO/CON roll.",
-    tags: ["Weed", "Smoking"],
-    image: asset("drugs/bluedream.png"),
-    stats: { duration: "While high", effect: "Stress relief, high", weight: "0.3 kg" },
-  },
-  {
-    id: "crack",
-    name: "Crack",
-    type: "drug",
-    rarity: "Rare",
-    description:
-      "PRO: +5 Armor (reactive). CON: increased aim sway until restart.",
-    tags: ["Reactive armor"],
-    image: asset("drugs/crack.png"),
-    stats: { duration: "Until restart", effect: "Reactive armor, aim sway", weight: "0.1 kg" },
-  },
-  {
     id: "flakka",
     name: "Flakka",
     type: "drug",
@@ -1069,17 +1039,6 @@ export const catalogItems: CatalogItem[] = [
     tags: ["Reactive armor"],
     image: asset("drugs/ggpill.png"),
     stats: { duration: "600s", effect: "Reactive armor", weight: "0.05 kg" },
-  },
-  {
-    id: "grenades-pill",
-    name: "Grenades",
-    type: "drug",
-    rarity: "Uncommon",
-    description:
-      "PRO: Adrenaline Rush skill until restart. CON: -15% Movement Speed until restart.",
-    tags: ["Adrenaline Rush"],
-    image: asset("drugs/grenades_pill.png"),
-    stats: { duration: "Until restart", effect: "Adrenaline Rush skill", weight: "0.05 kg" },
   },
   {
     id: "hydrocodone",
@@ -1111,17 +1070,6 @@ export const catalogItems: CatalogItem[] = [
     tags: ["Adrenaline Rush", "Health regen"],
     image: asset("drugs/mdma.png"),
     stats: { duration: "Until restart", effect: "Adrenaline rush, health regen", weight: "0.1 kg" },
-  },
-  {
-    id: "og-kush",
-    name: "OG Kush",
-    type: "drug",
-    rarity: "Common",
-    description:
-      "Weed strain (indica). Roll it or pack a bong: stress relief + high only, no PRO/CON roll.",
-    tags: ["Weed", "Smoking"],
-    image: asset("drugs/ogkush.png"),
-    stats: { duration: "While high", effect: "Stress relief, high", weight: "0.3 kg" },
   },
   {
     id: "opioids",
@@ -1187,28 +1135,6 @@ export const catalogItems: CatalogItem[] = [
     stats: { duration: "Until restart", effect: "Headshot Kings, reactive armor", weight: "0.05 kg" },
   },
   {
-    id: "purple-haze",
-    name: "Purple Haze",
-    type: "drug",
-    rarity: "Common",
-    description:
-      "Weed strain (sativa). Roll it or pack a bong: stress relief + high only, no PRO/CON roll.",
-    tags: ["Weed", "Smoking"],
-    image: asset("drugs/purplehaze.png"),
-    stats: { duration: "While high", effect: "Stress relief, high", weight: "0.3 kg" },
-  },
-  {
-    id: "sour-diesel",
-    name: "Sour Diesel",
-    type: "drug",
-    rarity: "Common",
-    description:
-      "Weed strain (sativa). Roll it or pack a bong: stress relief + high only, no PRO/CON roll.",
-    tags: ["Weed", "Smoking"],
-    image: asset("drugs/sourdiesel.png"),
-    stats: { duration: "While high", effect: "Stress relief, high", weight: "0.3 kg" },
-  },
-  {
     id: "spongebobs",
     name: "Spongebobs",
     type: "drug",
@@ -1268,7 +1194,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-combatknife",
     name: "Combat Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1290,7 +1216,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-stainlesssteel",
     name: "Stainless Steel Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1334,7 +1260,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukbutch",
     name: "Victorinox Butcher Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1345,7 +1271,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-cleaver",
     name: "Cleaver",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1378,7 +1304,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zombiebutterfly",
     name: "Zombie Butterfly Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1422,7 +1348,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-bayo",
     name: "L3A1 SLR Bayonet",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1433,7 +1359,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkn",
     name: "Zombie Tools Reaper",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1444,7 +1370,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zombiekiller",
     name: "Zombie Killer Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1455,7 +1381,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-23inch",
     name: "23 Inch Blade",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Close-quarters blade. Quick to draw and easy to conceal.",
     tags: ["Concealable", "Fast draw"],
@@ -1466,7 +1392,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-rambo",
     name: "First Blood Survival Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Survival knife with a heavy spine. Balanced reach and stopping power.",
     tags: ["Survival", "Balanced"],
@@ -1477,7 +1403,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ramboc",
     name: "Rambo II Mission Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Survival knife with a heavy spine. Balanced reach and stopping power.",
     tags: ["Survival", "Balanced"],
@@ -1488,7 +1414,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-rambov",
     name: "Rambo III Bowie Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description:
       "Survival knife with a heavy spine. Balanced reach and stopping power.",
     tags: ["Survival", "Balanced"],
@@ -1499,7 +1425,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ramboknife",
     name: "Rambo Knife",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Survival knife with a heavy spine. Balanced reach and stopping power.",
     tags: ["Survival", "Balanced"],
@@ -1565,7 +1491,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-machete",
     name: "Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1576,7 +1502,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-blackmachete",
     name: "Black Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1587,7 +1513,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettea",
     name: "Tramontina Bolo Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1598,7 +1524,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachetteb",
     name: "Martindale Golok Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1609,7 +1535,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettec",
     name: "Cold Steel Kukri Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1620,7 +1546,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachetted",
     name: "Condor Parang Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1631,7 +1557,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettee",
     name: "Ontario Military Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1642,7 +1568,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettef",
     name: "Gerber Gator Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1653,7 +1579,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachetteg",
     name: "Fiskars Brush Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1664,7 +1590,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachetteh",
     name: "Spear Point Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1675,7 +1601,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettei",
     name: "Latin Pattern Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1686,7 +1612,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettej",
     name: "Heavy Cane Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1697,7 +1623,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachettek",
     name: "Sawback Survival Machete",
     type: "knife",
-    rarity: "Common",
+    rarity: "Epic",
     description:
       "Long chopping blade. Big damage, but no hiding it.",
     tags: ["Heavy hitter", "Long reach"],
@@ -1708,7 +1634,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-anglosw",
     name: "Anglo-Saxon Longsword",
     type: "knife",
-    rarity: "Common",
+    rarity: "Legendary",
     description:
       "Full-length blade. Devastating reach, completely impractical to conceal.",
     tags: ["Massive reach", "Cannot conceal"],
@@ -1719,7 +1645,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukbkatana",
     name: "Black Carbon Katana",
     type: "knife",
-    rarity: "Common",
+    rarity: "Legendary",
     description:
       "Full-length blade. Devastating reach, completely impractical to conceal.",
     tags: ["Massive reach", "Cannot conceal"],
@@ -1730,7 +1656,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukbkatanab",
     name: "Black Tanto Katana",
     type: "knife",
-    rarity: "Common",
+    rarity: "Legendary",
     description:
       "Full-length blade. Devastating reach, completely impractical to conceal.",
     tags: ["Massive reach", "Cannot conceal"],
@@ -1741,7 +1667,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukmachzk",
     name: "Zombie Tools Apokatana",
     type: "knife",
-    rarity: "Common",
+    rarity: "Legendary",
     description:
       "Full-length blade. Devastating reach, completely impractical to conceal.",
     tags: ["Massive reach", "Cannot conceal"],
@@ -1752,7 +1678,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-flickyb",
     name: "Benchmade 51 Balisong",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "Premium butterfly knife. Smooth flip, razor sharp.",
     tags: ["Fast deploy", "Concealable"],
     image: asset("knives/WEAPON_FLICKYB.png"),
@@ -1762,7 +1688,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-flickyc",
     name: "Boker Plus Balisong",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "German-made butterfly knife. Precise balance, quick wrist.",
     tags: ["Fast deploy", "Concealable"],
     image: asset("knives/WEAPON_FLICKYC.png"),
@@ -1812,7 +1738,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-ukhatchet",
     name: "Carpenter's Hatchet",
     type: "knife",
-    rarity: "Rare",
+    rarity: "Uncommon",
     description: "Compact splitting axe. Brutal stopping power.",
     tags: ["High damage", "Intimidating"],
     image: asset("knives/WEAPON_UKHATCHET.png"),
@@ -1852,7 +1778,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-yrun",
     name: "Cold Steel Recon Tanto",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "Japanese tanto tip with an American clip-point spine. Pocket-ready.",
     tags: ["Concealable", "Fast draw"],
     image: asset("knives/WEAPON_YRUN.png"),
@@ -1862,7 +1788,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkw",
     name: "Zombie Tools Vakra",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "Curved recurve blade. Hooks deep on the pull.",
     tags: ["Unusual shape", "High damage"],
     image: asset("knives/WEAPON_ZKW.png"),
@@ -1872,7 +1798,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkx",
     name: "Zombie Tools Felon",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "Compact chopper with an aggressive clip-point tip.",
     tags: ["High damage", "Concealable"],
     image: asset("knives/WEAPON_ZKX.png"),
@@ -1882,7 +1808,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkxh",
     name: "Zombie Tools Hellion",
     type: "knife",
-    rarity: "Uncommon",
+    rarity: "Rare",
     description: "Full-size fighting blade with a wicked recurve. Not subtle.",
     tags: ["High damage", "Intimidating"],
     image: asset("knives/WEAPON_ZKXH.png"),
@@ -1892,7 +1818,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkxx",
     name: "Zombie Tools Sharkalope",
     type: "knife",
-    rarity: "Uncommon",
+    rarity: "Rare",
     description: "Serrated spine, forward-swept blade. Made for one thing.",
     tags: ["High damage", "Unusual shape"],
     image: asset("knives/WEAPON_ZKXX.png"),
@@ -1902,7 +1828,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zky",
     name: "Zombie Tools Tainto",
     type: "knife",
-    rarity: "Common",
+    rarity: "Uncommon",
     description: "Tanto-style blade with Zombie Tools' signature black finish.",
     tags: ["Concealable", "Fast draw"],
     image: asset("knives/WEAPON_ZKY.png"),
@@ -1912,7 +1838,7 @@ export const catalogItems: CatalogItem[] = [
     id: "weapon-zkz",
     name: "Zombie Tools Deuce",
     type: "knife",
-    rarity: "Common",
+    rarity: "Rare",
     description: "Dual-ground edge. Cuts on the draw and on the return.",
     tags: ["High damage", "Fast draw"],
     image: asset("knives/WEAPON_ZKZ.png"),

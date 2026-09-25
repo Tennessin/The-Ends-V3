@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import type { CatalogItem, WeaponStats, DrugStats } from "../../data/items";
+import { EffectList } from "./effect-list";
 import {
   NOKIA_PHONE_DESCRIPTION,
   NOKIA_PHONE_PRICE,
@@ -56,7 +57,8 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
   const isNokiaPhone = isNokiaPhoneItem(item);
   const weaponStats = isWeapon ? (item.stats as WeaponStats) : null;
   const drugStats = !isWeapon ? (item.stats as DrugStats) : null;
-  const displayTags = isNokiaPhone ? NOKIA_PHONE_TAGS : item.tags;
+  // Nokia-phone drugs are NPC-sale goods only: no PRO / CON roll, so no effect text or stats.
+  const displayTags = isNokiaPhone ? NOKIA_PHONE_TAGS.filter((t) => t !== "Nokia Phone") : item.tags;
 
   return (
     <div
@@ -121,9 +123,14 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
         </div>
 
         <div className="p-5 space-y-5">
-          <p className="[font-family:'Inter',Helvetica] text-sm font-normal leading-[22px] text-[#a296b6]">
-            {item.description}
-          </p>
+          {!isNokiaPhone && item.type === "drug" && (
+            <EffectList description={item.description} variant="full" />
+          )}
+          {!isNokiaPhone && item.type !== "drug" && item.description && (
+            <p className="[font-family:'Inter',Helvetica] text-sm font-normal leading-[22px] text-[#a296b6]">
+              {item.description}
+            </p>
+          )}
           {isNokiaPhone && (
             <p className="[font-family:'Inter',Helvetica] text-sm font-bold leading-[22px] text-[#bfdbfe]">
               {NOKIA_PHONE_DESCRIPTION}
@@ -182,7 +189,7 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
               </div>
             </div>
           )}
-          {drugStats && (
+          {drugStats && !isNokiaPhone && (
             <div className="space-y-3">
               <h3 className="[font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[1px] text-[#c3b2df] uppercase">
                 Item Stats

@@ -27,7 +27,7 @@ const STEPS = [
   {
     n: "01",
     title: "Earn XP by playing in character",
-    body: `Roleplay chat is the engine: any /s, /l, /sh, /w, /me, /do, /to or /tol message pays 39 XP, once every 15 minutes. Hit every window and that is ${CHAT_XP_PER_HOUR} XP an hour. Kills add a little on top.`,
+    body: `Roleplay chat is the engine: any /s, /l, /sh, /w, /me, /to or /tol message pays 39 XP, once every 15 minutes. Hit every window and that is ${CHAT_XP_PER_HOUR} XP an hour.`,
   },
   {
     n: "02",
@@ -44,7 +44,7 @@ const STEPS = [
 const RULES = [
   { k: "Creator picks", v: "Skills marked as creator picks were offered when you made your character. If you did not tick them then, you can never buy them. Everything else opens to anyone once they hit the level." },
   { k: "Skill caps", v: "Faction characters can own 3 skills, Illegal Civilians 7, Civilians 10. Choose with the whole ladder in mind." },
-  { k: "XP goes down too", v: "Every firearm hit that lands on you costs 500 XP, at most once a minute. Drop under a threshold and you lose the level, and your garage and inventory shrink with it." },
+  { k: "XP goes down too", v: "Every firearm hit that lands on you costs 500 XP and every melee hit 250 XP, at most one penalty a minute. Drop under a threshold and you lose the level, and your garage and inventory shrink with it." },
   { k: "Faction-wide skills", v: "Skills your faction has unlocked are shared with every member automatically when they load in." },
   { k: "Restart lock", v: "The /skills menu locks 10 minutes before a scheduled restart so purchases cannot be lost." },
   { k: "Check progress", v: "Type /level in chat to see your XP and how much is left to the next level. /playtime shows total hours." },
@@ -82,8 +82,8 @@ export const XpGuide = ({ path, level, onLevel }: Props): JSX.Element => {
           Talk, survive, cross the line
         </h2>
         <p className="max-w-[820px] [font-family:'Inter',Helvetica] text-[15px] leading-[25.5px] text-[#a296b6]">
-          There is no XP for jobs or grinding. Levels reward time spent roleplaying and staying alive; getting shot is
-          the only thing that takes XP away.
+          There is no XP for jobs or grinding. Levels reward time spent roleplaying and staying alive; getting shot
+          or stabbed is the only thing that takes XP away.
         </p>
       </div>
 
@@ -139,8 +139,8 @@ export const XpGuide = ({ path, level, onLevel }: Props): JSX.Element => {
             <p className="[font-family:'Inter',Helvetica] text-xs leading-[19px] text-[#a296b6]">
               <span className="font-black text-[#f7f4fb]">Worked example:</span> one RP message every 15 minutes is{" "}
               {CHAT_XP_PER_HOUR} XP an hour. Level 10 needs {fmt(LEVEL_XP[9])} XP, so about {LEVEL_HOURS[9]} hours of
-              consistent roleplay. One unlucky shootout where you take four hits in four minutes costs 2,000 XP,
-              roughly 13 hours of chat.
+              consistent roleplay. Only one hit a minute counts against you, but a long shootout where you get
+              tagged over four separate minutes still costs 2,000 XP, roughly 13 hours of chat.
             </p>
           </div>
         </div>

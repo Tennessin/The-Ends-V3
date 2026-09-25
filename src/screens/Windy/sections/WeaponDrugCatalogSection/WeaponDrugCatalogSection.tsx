@@ -5,7 +5,7 @@ import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { EffectList } from "../../../../components/ui/effect-list";
 import type { CatalogItem, DrugStats, ItemType, WeaponStats } from "../../../../data/items";
-import { catalogItems } from "../../../../data/items";
+import { catalogItems, tierLabel } from "../../../../data/items";
 import {
   NOKIA_PHONE_DESCRIPTION,
   NOKIA_PHONE_PRICE,
@@ -285,7 +285,7 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
                       </Badge>
                       {item.tier !== undefined && (
                         <span className="[font-family:'Inter',Helvetica] text-[10px] font-bold text-[#a296b6]">
-                          Wheel tier {item.tier}
+                          Wheel tier {[item.tier, ...(item.spinTiers ?? [])].map(tierLabel).sort().join(" & ")}
                         </span>
                       )}
                       {nokia && (

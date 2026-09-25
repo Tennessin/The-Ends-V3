@@ -28,6 +28,9 @@ export const SiteFooter = (): JSX.Element => (
         <Link to="/progression" className={linkClass}>
           Skills & Levelling
         </Link>
+        <Link to="/rules" className={linkClass}>
+          Rules of Engagement
+        </Link>
         <a href="#top" className={linkClass}>
           Back to top ↑
         </a>

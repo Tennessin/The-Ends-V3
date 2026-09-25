@@ -2,6 +2,7 @@ import { StrictMode, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ProgressionPage } from "./screens/Progression";
+import { RulesPage } from "./screens/Rules";
 import { Windy } from "./screens/Windy";
 
 // Vite's base ("/The-Ends-V3/") doubles as the router basename so links work on
@@ -34,6 +35,7 @@ createRoot(document.getElementById("app") as HTMLElement).render(
       <Routes>
         <Route path="/" element={<Windy />} />
         <Route path="/progression" element={<ProgressionPage />} />
+        <Route path="/rules" element={<RulesPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

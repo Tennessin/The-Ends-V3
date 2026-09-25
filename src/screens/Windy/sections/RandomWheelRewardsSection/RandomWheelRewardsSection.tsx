@@ -10,8 +10,8 @@ type Tier = 1 | 1.5 | 2;
 
 const tierOptions: { value: string; label: string; tier: Tier }[] = [
   { value: "tier-1", label: "TIER 1", tier: 1 },
-  { value: "tier-1-5", label: "TIER 1.5", tier: 1.5 },
-  { value: "tier-2", label: "TIER 2", tier: 2 },
+  { value: "tier-1-5", label: "TIER 2", tier: 1.5 },
+  { value: "tier-2", label: "TIER 3", tier: 2 },
 ];
 
 /** Every weapons roll: this many guns, then this many knives. */

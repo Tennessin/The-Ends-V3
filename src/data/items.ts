@@ -21,6 +21,7 @@ export interface CatalogItem {
   name: string;
   type: ItemType;
   rarity: "Common" | "Uncommon" | "Rare" | "Epic" | "Legendary";
+  /** Internal wheel tier. Shown to players as Tier 1 / 2 / 3 via tierLabel(). */
   tier?: 1 | 1.5 | 2;
   /** Extra spin-wheel tiers this weapon also appears in, beyond its primary `tier`. */
   spinTiers?: (1 | 1.5 | 2)[];
@@ -29,6 +30,10 @@ export interface CatalogItem {
   image?: string;
   stats?: WeaponStats | DrugStats;
 }
+
+/** Player-facing wheel tier: internal 1 / 1.5 / 2 are shown as Tier 1 / 2 / 3. */
+export const tierLabel = (tier: 1 | 1.5 | 2 | undefined): string =>
+  tier === 1 ? "1" : tier === 1.5 ? "2" : tier === 2 ? "3" : "";
 
 export const catalogItems: CatalogItem[] = [
   {
@@ -446,7 +451,7 @@ export const catalogItems: CatalogItem[] = [
     name: "AYA No. 4 Sawn-Off",
     type: "weapon",
     rarity: "Uncommon",
-    tier: 1.5,
+    tier: 2,
     description: "Spanish double-barrel, cut down for the street. Two shots, make them count.",
     tags: ["Shotgun", "High damage"],
     image: asset("bruckshot.png"),
@@ -457,7 +462,7 @@ export const catalogItems: CatalogItem[] = [
     name: "Baikal IJ-43 Sawn-Off",
     type: "weapon",
     rarity: "Uncommon",
-    tier: 1.5,
+    tier: 2,
     description: "Russian sawn-off. Brutal at close range, useless anywhere else.",
     tags: ["Shotgun", "High damage"],
     image: asset("bruckshotb.png"),
@@ -468,7 +473,7 @@ export const catalogItems: CatalogItem[] = [
     name: "Webley & Scott Sawn-Off",
     type: "weapon",
     rarity: "Uncommon",
-    tier: 1.5,
+    tier: 2,
     description: "Classic British sawn-off. Old school, still deadly.",
     tags: ["Shotgun", "Street classic"],
     image: asset("ukolds.png"),
@@ -479,7 +484,7 @@ export const catalogItems: CatalogItem[] = [
     name: "Mossberg 500 Cruiser",
     type: "weapon",
     rarity: "Rare",
-    tier: 1.5,
+    tier: 2,
     description: "Pistol-grip pump-action. Compact, powerful, runs reliably.",
     tags: ["Shotgun", "Pump-action"],
     image: asset("sopu.png"),
@@ -490,7 +495,7 @@ export const catalogItems: CatalogItem[] = [
     name: "Mossberg 500 Pump-Action",
     type: "weapon",
     rarity: "Rare",
-    tier: 1.5,
+    tier: 2,
     description: "Full-stock pump-action. Better range and capacity than the sawn-offs.",
     tags: ["Shotgun", "Pump-action"],
     image: asset("ukpumpy.png"),
@@ -501,7 +506,7 @@ export const catalogItems: CatalogItem[] = [
     name: "Remington 870",
     type: "weapon",
     rarity: "Rare",
-    tier: 1.5,
+    tier: 2,
     description: "America's most popular pump-action. Trusted in the field for a reason.",
     tags: ["Shotgun", "Pump-action"],
     image: asset("lpump.png"),
@@ -514,6 +519,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: "Full-auto machine pistol. Sprays fast, runs out faster.",
     tags: ["Full-auto", "SMG"],
     image: asset("masheend.png"),
@@ -525,6 +531,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: ".45 ACP machine pistol. Compact, full-auto, hard to control.",
     tags: ["Full-auto", "SMG"],
     image: asset("mashine.png"),
@@ -536,6 +543,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: ".380 machine pistol. Smaller brother of the M10, even faster cyclic rate.",
     tags: ["Full-auto", "SMG"],
     image: asset("mashineb.png"),
@@ -547,6 +555,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: "Compact Uzi variant. Iconic street SMG, devastating up close.",
     tags: ["Full-auto", "SMG"],
     image: asset("mashinec.png"),
@@ -558,6 +567,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: ".45 ACP machine pistol. Box mag, full-auto, one of the most feared street guns.",
     tags: ["Full-auto", "SMG", "Iconic"],
     image: asset("ukbigmac.png"),
@@ -569,6 +579,7 @@ export const catalogItems: CatalogItem[] = [
     type: "weapon",
     rarity: "Rare",
     tier: 2,
+    spinTiers: [1.5],
     description: "Smallest Uzi variant. Fires at an insane rate, clips empty in seconds.",
     tags: ["Full-auto", "SMG", "Concealable"],
     image: asset("ukskenga.png"),
@@ -923,17 +934,6 @@ export const catalogItems: CatalogItem[] = [
     stats: { duration: "180s", effect: "Stamina regen, screenshake removal", weight: "0.1 kg" },
   },
 
-  {
-    id: "bolivian-coke-28g",
-    name: "Bolivian Coke 28g",
-    type: "drug",
-    rarity: "Rare",
-    description:
-      "PRO: +10% Run Speed for 300s or +15% Stamina Regen for 300s. CON: -8% Health instantly or -10% Stamina Regen for 180s.",
-    tags: ["Run speed", "Stamina"],
-    image: asset("drugs/boliviancoke28g.png"),
-    stats: { duration: "300s", effect: "Run speed, stamina regen", weight: "0.3 kg" },
-  },
   {
     id: "clinged-ket-rocks",
     name: "Clinged Ket Rocks",

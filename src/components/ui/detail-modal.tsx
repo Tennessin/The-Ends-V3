@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
-import type { CatalogItem, WeaponStats, DrugStats } from "../../data/items";
+import { tierLabel, type CatalogItem, type WeaponStats, type DrugStats } from "../../data/items";
 import { EffectList } from "./effect-list";
 import {
   NOKIA_PHONE_DESCRIPTION,
@@ -93,7 +93,7 @@ export function DetailModal({ item, drugQuantity, onClose }: DetailModalProps) {
               </span>
               {item.tier !== undefined && (
                 <span className="rounded-md border border-[#1a1424] bg-[#0d0913] px-2 py-0.5 text-[11px] font-bold tracking-[0.5px] text-[#a296b6]">
-                  Tier {item.tier}
+                  Tier {[item.tier, ...(item.spinTiers ?? [])].map(tierLabel).sort().join(" & ")}
                 </span>
               )}
               {isNokiaPhone && (

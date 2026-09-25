@@ -10,6 +10,7 @@ export interface SectionLink {
 const pageTabs = [
   { to: "/", label: "Illegal Area Guide", short: "Guide" },
   { to: "/progression", label: "Skills & Levelling", short: "Skills" },
+  { to: "/rules", label: "Rules of Engagement", short: "Rules" },
 ];
 
 interface SiteNavProps {

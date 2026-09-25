@@ -324,7 +324,7 @@ export const XP_SOURCES: XpSource[] = [
     title: "Roleplay chat",
     amount: "+39 XP",
     detail:
-      "Any RP command counts: /s, /l, /sh, /w, /me, /do, /to and /tol. One reward every 15 minutes, so keep talking in character.",
+      "Any RP command counts: /s, /l, /sh, /w, /me, /to and /tol. One reward every 15 minutes, so keep talking in character.",
     kind: "gain",
     perHour: 39 * 4,
   },
@@ -339,6 +339,13 @@ export const XP_SOURCES: XpSource[] = [
     amount: "−500 XP",
     detail:
       "Each time a firearm hit lands on you, at most once a minute. Getting caught slipping can wipe hours of progress, so pick your fights.",
+    kind: "loss",
+  },
+  {
+    title: "Getting stabbed",
+    amount: "−250 XP",
+    detail:
+      "Each time a knife, bat or other melee weapon lands on you. Shares the one-a-minute cooldown with gunshots, so you never lose more than one hit's worth per minute.",
     kind: "loss",
   },
   {

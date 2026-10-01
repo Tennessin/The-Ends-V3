@@ -1,6 +1,7 @@
 import { StrictMode, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { ExternalRedirect } from "./components/ExternalRedirect";
 import { FactionTiersPage } from "./screens/FactionTiers";
 import { ProgressionPage } from "./screens/Progression";
 import { RulesPage } from "./screens/Rules";
@@ -38,6 +39,7 @@ createRoot(document.getElementById("app") as HTMLElement).render(
         <Route path="/progression" element={<ProgressionPage />} />
         <Route path="/rules" element={<RulesPage />} />
         <Route path="/faction-tiers" element={<FactionTiersPage />} />
+        <Route path="/discord" element={<ExternalRedirect to="https://discord.gg/ZU7hGKPE8W" />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

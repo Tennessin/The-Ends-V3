@@ -405,7 +405,8 @@ export const RandomWheelRewardsSection = ({
                   className={`flex h-full cursor-pointer flex-col rounded-lg border border-solid border-[#1a1424] bg-[#0b0711] p-[17px] text-left transition-all duration-150 hover:border-[#c3b2df]/40 hover:shadow-[0_0_16px_rgba(184,199,217,0.07)]`}
                 >
                   <Badge className="mb-3 w-fit rounded-xl border border-solid border-[#1a1424] bg-[#0d0913] px-2.5 py-1.5 [font-family:'Inter',Helvetica] text-[11px] font-bold tracking-[0.02em] text-[#c3b2df] hover:bg-[#0d0913] normal-case">
-                    gun {index + 1}
+                    {item.type === "knife" ? "knife" : "gun"}{" "}
+                    {dropResults.slice(0, index + 1).filter((r) => r.type === item.type).length}
                   </Badge>
                   <div className="flex h-[120px] items-center justify-center rounded-md border border-solid border-[#1a1424] bg-[#0e0e0e] p-3.5">
                     {item.image ? (

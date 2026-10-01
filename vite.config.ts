@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/The-Ends-V3/",
+  base: "/",
   css: {
     postcss: {
       plugins: [tailwind()],

@@ -6,7 +6,7 @@ import { Card, CardContent } from "../../../../components/ui/card";
 import { EffectList } from "../../../../components/ui/effect-list";
 import type { CatalogItem, DrugStats, ItemType, WeaponStats } from "../../../../data/items";
 import { catalogItems, tierLabel } from "../../../../data/items";
-import { dropChances, formatPercent, tierNumber } from "../../../../lib/dropPool";
+import { dropChances, formatPercent, tierNumber, type Tier } from "../../../../lib/dropPool";
 import {
   NOKIA_PHONE_DESCRIPTION,
   NOKIA_PHONE_PRICE,
@@ -16,6 +16,18 @@ import {
 
 type FilterType = "ALL" | "WEAPONS" | "KNIVES" | "DRUGS" | "NOKIA";
 type SortKey = "default" | "rarity" | "damage" | "name";
+type TierFilter = "ALL" | Tier;
+
+const tierButtons: { value: TierFilter; label: string }[] = [
+  { value: "ALL", label: "All tiers" },
+  { value: 1, label: "Tier 1" },
+  { value: 1.5, label: "Tier 2" },
+  { value: 2, label: "Tier 3" },
+];
+
+/** A gun is in a tier if that is its primary wheel tier or one of its extra spin tiers. */
+const inTier = (item: CatalogItem, tier: Tier): boolean =>
+  item.type === "weapon" && (item.tier === tier || (item.spinTiers?.includes(tier) ?? false));
 
 const filterButtons: { value: FilterType; label: string }[] = [
   { value: "ALL", label: "All" },
@@ -94,6 +106,19 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("ALL");
   const [sort, setSort] = useState<SortKey>("default");
+  const [tierFilter, setTierFilter] = useState<TierFilter>("ALL");
+
+  // Tiers only exist for guns, so the tier row is hidden (and ignored) for knives, drugs and Nokia items.
+  const showTierFilter = activeFilter === "ALL" || activeFilter === "WEAPONS";
+  const activeTier: TierFilter = showTierFilter ? tierFilter : "ALL";
+
+  const tierCounts = useMemo(() => {
+    const c = new Map<TierFilter, number>([["ALL", catalogItems.filter((i) => i.type === "weapon").length]]);
+    for (const { value } of tierButtons) {
+      if (value !== "ALL") c.set(value, catalogItems.filter((i) => inTier(i, value)).length);
+    }
+    return c;
+  }, []);
 
   const counts = useMemo(() => {
     const c: Record<FilterType, number> = { ALL: catalogItems.length, WEAPONS: 0, KNIVES: 0, DRUGS: 0, NOKIA: 0 };
@@ -117,7 +142,8 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
         item.tags.some((t) => t.toLowerCase().includes(q)) ||
         (item.type === "drug" && item.description.toLowerCase().includes(q)) ||
         (isNokiaPhoneItem(item) && "nokia phone npc sale".includes(q));
-      return matchesType && matchesSearch;
+      const matchesTier = activeTier === "ALL" || inTier(item, activeTier);
+      return matchesType && matchesSearch && matchesTier;
     });
 
     if (sort === "rarity") {
@@ -128,7 +154,7 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
       list.sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
-  }, [search, activeFilter, sort]);
+  }, [search, activeFilter, activeTier, sort]);
 
   return (
     <section
@@ -149,6 +175,7 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
       </header>
 
       <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by type">
           {filterButtons.map(({ value, label }) => (
             <Button
@@ -170,6 +197,31 @@ export const WeaponDrugCatalogSection = ({ onItemClick }: WeaponDrugCatalogSecti
               </span>
             </Button>
           ))}
+        </div>
+        {showTierFilter && (
+          <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter guns by wheel tier">
+            {tierButtons.map(({ value, label }) => (
+              <Button
+                key={String(value)}
+                type="button"
+                variant="ghost"
+                aria-pressed={activeTier === value}
+                aria-label={`${label} (${tierCounts.get(value) ?? 0})`}
+                onClick={() => setTierFilter(value)}
+                className={`h-auto rounded-xl px-3 py-1.5 transition-all duration-150 hover:bg-transparent ${
+                  activeTier === value
+                    ? "bg-[#c3b2df] text-[#09060d] hover:bg-[#c3b2df]"
+                    : "border border-[#1a1424] bg-[#0d0913] text-[#a296b6] hover:text-[#f7f4fb]"
+                }`}
+              >
+                <span className="[font-family:'Inter',Helvetica] text-xs font-bold">
+                  {label}
+                  <span className="ml-1.5 opacity-70">{tierCounts.get(value) ?? 0}</span>
+                </span>
+              </Button>
+            ))}
+          </div>
+        )}
         </div>
         <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center lg:w-auto">
           <label className="relative w-full sm:max-w-xs">

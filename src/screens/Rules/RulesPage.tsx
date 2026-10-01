@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { SiteFooter } from "../../components/SiteFooter";
+import { PageBackdrop } from "../../components/PageBackdrop";
 import { SiteNav, type SectionLink } from "../../components/SiteNav";
 import { RULES_INTRO, RULE_SECTIONS, TOTAL_RULES } from "../../data/rules";
 import { asset } from "../../lib/asset";
@@ -85,6 +86,7 @@ export const RulesPage = (): JSX.Element => {
       <SiteNav sections={SECTIONS} />
 
       <section className="relative w-full overflow-hidden">
+        <PageBackdrop page="rules" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SiteFooter } from "../../components/SiteFooter";
+import { PageBackdrop } from "../../components/PageBackdrop";
 import { SiteNav, type SectionLink } from "../../components/SiteNav";
 import { FACTION_SKILLS, FACTION_TIERS, TIER_REWARDS } from "../../data/factionTiers";
 import { asset } from "../../lib/asset";
@@ -22,6 +23,7 @@ export const FactionTiersPage = (): JSX.Element => {
       <SiteNav sections={SECTIONS} />
 
       <section className="relative w-full overflow-hidden">
+        <PageBackdrop page="factionTiers" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

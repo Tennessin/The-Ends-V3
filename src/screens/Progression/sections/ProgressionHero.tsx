@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { PageBackdrop } from "../../../components/PageBackdrop";
 import {
   MAX_LEVEL,
   STARTING_AP,
@@ -29,6 +30,7 @@ export const ProgressionHero = ({ path, level }: Props): JSX.Element => {
 
   return (
     <section className="relative w-full overflow-hidden">
+      <PageBackdrop page="progression" />
       <div
         className="pointer-events-none absolute inset-0 transition-[background] duration-700"
         style={{

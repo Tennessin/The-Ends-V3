@@ -6,17 +6,13 @@ import type { CatalogItem, ItemType } from "../../../../data/items";
 import { getRandomItems } from "../../../../data/items";
 import { DropCode } from "../../../../components/ui/drop-code";
 import { encodeDropCode, quantityLabelToNumber } from "../../../../lib/dropCode";
-import { dropChances, formatOdds, formatPercent, getPool as getSharedPool, tierNumber, type Tier } from "../../../../lib/dropPool";
+import { dropChances, formatOdds, formatPercent, getPool as getSharedPool, gunsPerRoll, knivesPerRoll, pickWeighted, tierNumber, type Tier } from "../../../../lib/dropPool";
 
 const tierOptions: { value: string; label: string; tier: Tier }[] = [
   { value: "tier-1", label: "TIER 1", tier: 1 },
   { value: "tier-1-5", label: "TIER 2", tier: 1.5 },
   { value: "tier-2", label: "TIER 3", tier: 2 },
 ];
-
-/** Every weapons roll: this many guns, then this many knives. */
-const GUNS_PER_ROLL = 1;
-const KNIVES_PER_ROLL = 3;
 
 const categoryOptions: { value: string; label: string; type: ItemType }[] = [
   { value: "firearms", label: "GUNS", type: "weapon" },
@@ -178,10 +174,13 @@ export const RandomWheelRewardsSection = ({
   }, []);
 
   const runSingleSpin = useCallback(
-    (pool: CatalogItem[]): Promise<{ slot: number; item: CatalogItem | null; frameSlots: (CatalogItem | null)[] }> => {
+    (pool: CatalogItem[], tier: Tier): Promise<{ slot: number; item: CatalogItem | null; frameSlots: (CatalogItem | null)[] }> => {
       return new Promise((resolve) => {
         const shuffled = getRandomItems(pool, pool.length);
-        let startIndex = Math.floor(Math.random() * shuffled.length);
+        // The winner is drawn by weight first; the reel then starts where it will stop on it.
+        const len = shuffled.length;
+        const winnerIndex = shuffled.indexOf(pickWeighted(shuffled, tier));
+        let startIndex = (((winnerIndex - PICK_SLOT_INDEX - STEPS_PER_SPIN) % len) + len) % len;
         let step = 0;
 
         setResultSlot(null);
@@ -228,7 +227,7 @@ export const RandomWheelRewardsSection = ({
       setCurrentSpin(1);
       setIsSpinning(true);
 
-      const result = await runSingleSpin(pool);
+      const result = await runSingleSpin(pool, activeTier);
       setIsSpinning(false);
       setCurrentSpin(0);
       setTotalSpins(0);
@@ -242,11 +241,11 @@ export const RandomWheelRewardsSection = ({
         setTimeout(() => onItemSelected(result.item!, qty), 250);
       }
     } else {
-      // A weapons roll is a fixed drop: GUNS_PER_ROLL guns, then KNIVES_PER_ROLL knives.
+      // A weapons roll is a fixed drop: the tier's guns first, then its knives.
       const knifePool = getPool(activeTier, "knife");
       const plan: CatalogItem[][] = [
-        ...Array(GUNS_PER_ROLL).fill(pool),
-        ...Array(knifePool.length ? KNIVES_PER_ROLL : 0).fill(knifePool),
+        ...Array(gunsPerRoll(activeTier)).fill(pool),
+        ...Array(knifePool.length ? knivesPerRoll(activeTier) : 0).fill(knifePool),
       ];
       const spins = plan.length;
       setTotalSpins(spins);
@@ -256,7 +255,7 @@ export const RandomWheelRewardsSection = ({
       for (let i = 0; i < spins; i++) {
         if (sequenceCancelledRef.current) break;
         setCurrentSpin(i + 1);
-        const result = await runSingleSpin(plan[i]);
+        const result = await runSingleSpin(plan[i], activeTier);
         if (result.item) {
           collected.push(result.item);
           setDropResults([...collected]);
@@ -277,7 +276,7 @@ export const RandomWheelRewardsSection = ({
         const knives = collected.filter((i) => i.type === "knife").length;
         setDropCode({
           code: encodeDropCode(tierNumber(activeTier), collected.map((i) => ({ id: i.id, qty: 1 }))),
-          summary: `${guns} gun${guns === 1 ? "" : "s"} + ${knives} knife${knives === 1 ? "" : "s"}, Tier ${tierNumber(activeTier)}`,
+          summary: `${guns} gun${guns === 1 ? "" : "s"} + ${knives} ${knives === 1 ? "knife" : "knives"}, Tier ${tierNumber(activeTier)}`,
         });
       }
     }

@@ -7,9 +7,9 @@ export const TIERS: Tier[] = [1, 1.5, 2];
 /** Player-facing tier number: internal 1 / 1.5 / 2 are shown as 1 / 2 / 3. */
 export const tierNumber = (tier: Tier): number => (tier === 1 ? 1 : tier === 1.5 ? 2 : 3);
 
-/** Every weapons roll: this many guns, then this many knives. */
-export const GUNS_PER_ROLL = 1;
-export const KNIVES_PER_ROLL = 3;
+/** Every weapons roll: this many guns, then this many knives, by tier. */
+export const gunsPerRoll = (tier: Tier): number => tierNumber(tier);
+export const knivesPerRoll = (tier: Tier): number => tierNumber(tier) + 1;
 export const DRUG_QUANTITIES = ["x50", "x100", "x150"] as const;
 
 /**
@@ -27,27 +27,41 @@ export const getPool = (tier: Tier, category: ItemType): CatalogItem[] =>
         item.spinTiers?.includes(tier)),
   );
 
+/** An item's weight on a wheel: `spinWeight` counts only on its extra `spinTiers` wheels. */
+export const spinWeightOn = (item: CatalogItem, tier: Tier): number =>
+  item.tier !== tier && item.spinTiers?.includes(tier) ? item.spinWeight ?? 1 : 1;
+
+export const pickWeighted = (pool: CatalogItem[], tier: Tier): CatalogItem => {
+  const total = pool.reduce((sum, item) => sum + spinWeightOn(item, tier), 0);
+  let roll = Math.random() * total;
+  for (const item of pool) {
+    roll -= spinWeightOn(item, tier);
+    if (roll < 0) return item;
+  }
+  return pool[pool.length - 1];
+};
+
 export interface DropChance {
   tier: Tier;
   /** Chance of this item on a single pull from its pool (0–1). */
   perPull: number;
-  /** Chance of seeing it at least once in a full roll (guns ×1, knives ×3, drugs ×1). */
+  /** Chance of seeing it at least once in a full roll on that tier. */
   perRoll: number;
   poolSize: number;
 }
 
-const pullsFor = (type: ItemType): number => (type === "knife" ? KNIVES_PER_ROLL : type === "weapon" ? GUNS_PER_ROLL : 1);
+const pullsFor = (type: ItemType, tier: Tier): number =>
+  type === "knife" ? knivesPerRoll(tier) : type === "weapon" ? gunsPerRoll(tier) : 1;
 
 /** Where and how often an item drops. Empty for items that never spin. */
 export const dropChances = (item: CatalogItem): DropChance[] => {
   if (!isSpinEligible(item)) return [];
-  const pulls = pullsFor(item.type);
   const out: DropChance[] = [];
   for (const tier of TIERS) {
     const pool = getPool(tier, item.type);
     if (!pool.some((p) => p.id === item.id)) continue;
-    const perPull = 1 / pool.length;
-    out.push({ tier, perPull, perRoll: 1 - Math.pow(1 - perPull, pulls), poolSize: pool.length });
+    const perPull = spinWeightOn(item, tier) / pool.reduce((sum, p) => sum + spinWeightOn(p, tier), 0);
+    out.push({ tier, perPull, perRoll: 1 - Math.pow(1 - perPull, pullsFor(item.type, tier)), poolSize: pool.length });
   }
   // Drugs and untiered knives have the same pool on every tier: collapse to one entry.
   if (out.length === TIERS.length && out.every((c) => c.poolSize === out[0].poolSize)) {
